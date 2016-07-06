@@ -1,0 +1,129 @@
+2007-12-30 - Release of 0.4 
+
+Bugs:
+
+ - Finally sorted out the return of false instead of HTML, both sync and async calls.
+
+The changes in release v.0.4 RC4:
+
+Bugs:
+
+ - Adding slashes was broken with php5.2
+
+ - Adding slashes if magic quotes is enabled didn't work.
+
+ - Fix so that: function agent_test($var = 'hello'){} workes.
+ 
+Changes:
+ 
+ - Added test for slashes to agent_test
+
+
+The changes in release v.0.4 RC3:
+
+Bugs:
+ 
+ - Added parseJSON() to the two places that did not use it: when returning to a innerHTML or value field.
+
+Changes:
+
+ - Added some html tests to agent_test.
+
+
+The changes in release v.0.4 RC2:
+ 
+Bugs:
+
+ - the & character was a no-no in an array (at least when not using utf8), fixed in r34
+ 
+Changes: 
+ 
+ - Added more tests to agent_test - now 22 tests! 
+
+Tested with agent_test.php and passed on:
+ Linux: 
+ - Apache 2.0.54 & PHP 4.3.10
+ - Apache 2.2.3 & PHP 5.2.0
+ 
+ Windows 2003:
+ - Apache 2.0.53 & PHP 4.3.
+ 
+ Windows XP:
+ - IIS & PHP 5.2.3
+ 
+The changes in release v.0.4 RC1:
+
+Security fix:
+
+ - Added register_func and register_prefix, to limit the functions that ajaxagent is allowed to call.
+ - Security patch with the help from Skv
+
+Bugs:
+
+ - Added the js fix for firefox
+ - Fixed a couple of js notice (missing var)
+ - Changed the encodeURI to encodeURIComponent from http://ajaxagent.org/modules/newbb/viewtopic.php?topic_id=153&forum=4
+ - Made it possible to return an array to an sync call
+ - If we have magic_quotes on, that is not good for array's, remove slashes and then apply slashes after json->php is done.
+
+Changes:
+
+ - Support for non-us characters
+ - UTF8 encoding and decoding can be done by ajaxagent
+ - Added a testbed for agent devolpment - it's realy not pretty code - but it's getting the job done... agent_test.php and agent_test.js
+ - Added support for php 5.2 builtin JSON parser - thanks SKv
+ - Updated json.js from json.org
+ - Updated Service_JSON to 1.31
+ - Added function to show a div during ajax calls. For the moment it's controlled by setting vars in js, line 328 and 329.
+
+   var Agent_ShowWorking = 1;  // Set to true if you want AjaxAgent to do display a div during work.
+   var Agent_ShowWorkingDiv = 'AjaxWorking';  // Name of the div we would like to show / hide
+
+   There is a check if the div to show / hide exsist - if you don't have div called AjaxWorking - well nothing will happen, but if you do - magic will appear...
+
+Added functions to class Agent:
+
+ - agent_process(); 												processing the calls to ajaxagent
+ - init_return(); 													to return the js, to be used whith smarty etc.
+ - my_debug($func, $str); 											to help debugging
+ - options($convert_to_utf8 = false, $convert_from_utf8 = false);	setting utf8 encoding/decoding
+ - register_func($str);												registering funktions that are allowed to be called
+ - register_prefix($str);											setting the prefix that all functions need to have to be allowed to be called
+ - stripslashes2($str);												removing slashes from an array
+ - detectUTF8($str);												returns true if the string contains utf8
+ - addslashes_array($a);											adding slashes to an array
+ - do_utf8_encode_array($a);										utf8 encoding an array (only the values are decoded)
+ - do_utf8_decode_array($a);										utf8 decoding an array (only the values are decoded)
+ 
+ 
+The changes in release v.0.3:
+
+1. Bug fixes 
+
+ - the bug related to absence of $_SERVER['REQUEST_URI'] in
+   PHP over IIS is now fixed
+
+ - the bug that arises from certain server settings are
+   now fixed. proper use of 'isset' function helped fix 
+   this issue.
+
+
+The changes in release v.0.2:
+
+1. Bug fixes 
+
+ - the bug related to arrays & associated arrays is now fixed. 
+
+ - the bug that arises from certain server settings are
+   now fixed. proper use of 'isset' function & '<?php>' 
+   tag helped fix these issues.
+   
+2. Externalized source
+
+ - the client-side JavaScript is now externalized so that
+   the HTML output of your PHP script stays clean.
+
+3. New method
+
+ - an additional method 'abort' is introduced to help abort
+   Ajax requests when needed.

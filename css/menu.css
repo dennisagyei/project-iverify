@@ -1,0 +1,30 @@
+@charset "utf-8";
+/* CSS Document */
+
+.menu_ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #F0F0F0;
+	border: 1px solid black;
+	border-radius: 5px;
+}
+
+.menu_li {
+    float: left;
+	border-right: 1px solid #bbb;
+}
+
+.menu_li a {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 7px 16px;
+    text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+menu_li a:hover {
+    background-color: #111;
+}

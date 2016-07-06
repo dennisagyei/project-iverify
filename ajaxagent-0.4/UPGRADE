@@ -1,0 +1,30 @@
+UPGRADE
+
+0.3 -> 0.4:
+
+It should be a drop in replacement, copy the new agent.php over your existing agent.php 
+and you are ready to go. Please do a backup of agent.php before though.
+
+To be able to take advantage of utf8 en/decoding, limiting the functions AjaxAgent can call 
+and deciding where to process the calls (in your php file), you need to do like this:
+
+	//  First a define, to tell AjaxAgent not to process calls.
+	define('AJAXAGENT_ADVANCED', 1);
+
+	//  No comments
+	include_once('agent.php');
+
+	//  Only functions beginning with ajax_ are allowed, you could use register_func('func_name'); 
+	//  instead (multiple times - for each function you want to add).
+	$agent->register_prefix('ajax_');
+
+	//  enabling UTF8 encoding and decoding of the data sent and received, they are disabled by default.
+	$agent->options(true, true);
+
+	//  Here the calls from agent.call() are processed. You should put this after any authentications etc.
+	$agent->agent_process();
+
+	//  Returning the javascript init as an string instead of echoing. Good for Smarty etc.
+	$js = $agent->init_return(); 
+
+There is more info in CHANGES.
